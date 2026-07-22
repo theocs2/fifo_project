@@ -35,10 +35,6 @@ module async_fifo #(
         .gray(w_ptr_gray)
     );
 
-    gray2bin u_gray2bin_rd (
-        .gray(r_ptr_gray),
-        .bin(r_ptr_bin)
-    );
 
     // ** insert FF synchronizers here ** 
 
@@ -58,7 +54,7 @@ module async_fifo #(
     always_ff @(posedge rclk or negedge rrst_n) begin
         if(!rrst_n) 
             r_ptr_bin <= '0;
-        else if (ren && !full)
+        else if (ren && !empty)
             r_ptr_bin <= r_ptr_bin + 1; //increment pointer
     end
 
@@ -69,15 +65,18 @@ module async_fifo #(
 
 
     //Full condition checked in WRITE domain
-    assign full = (w_ptr_gray[ADDR_WIDTH-1] != r_ptr_gray_sync[ADDR_WIDTH-1]) && 
-    (w_ptr_gray[ADDR_WIDTH-2:0] == r_ptr_gray_sync[ADDR_WIDTH-2:0]);
+    assign full = (w_ptr_gray[PTR_WIDTH-1] != r_ptr_gray_sync[PTR_WIDTH-1]) && 
+    (w_ptr_gray[PTR_WIDTH-2:0] == r_ptr_gray_sync[PTR_WIDTH-2:0]);
 
 
     //memory instantiation
 
+    assign w_addr = w_ptr_bin[ADDR_WIDTH-1:0];
+    assign r_addr = r_ptr_bin[ADDR_WIDTH-1:0];
+
     dual_port_ram bram(
         .wclk(wclk),
-        .wen(wen),
+        .wen(wen && ~full), //gated write enable, only when not full
         .waddr(w_addr),
         .wdata(wdata),
         .rclk(rclk),
