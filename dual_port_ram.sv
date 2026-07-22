@@ -12,4 +12,22 @@ module dual_port_ram #(
     output logic [DATA_WIDTH-1:0] rdata
 );
 
+    logic [DATA_WIDTH-1:0] mem [(1 << ADDR_WIDTH) - 1:0];   
+     
+    //write port logic
+    always_ff @(posedge wclk) begin
+
+        if(wen)
+            mem[waddr] <= wdata;
+    end
+
+    //read port
+    logic [DATA_WIDTH-1:0] rdata_reg;
+
+    always_ff @(posedge rclk) begin
+        rdata_reg <= mem[raddr];
+    end
+
+    assign rdata = rdata_reg;
+
 endmodule
