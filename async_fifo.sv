@@ -38,7 +38,7 @@ module async_fifo #(
 
     // ** insert FF synchronizers here ** 
 
-
+    
 
 
 
