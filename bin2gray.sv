@@ -5,7 +5,7 @@ module bin2gray #(
     output logic [WIDTH-1:0] gray
 );
 
-    assign gray = bin ^ (bin << 1);
+    assign gray = bin ^ (bin >> 1);
 
 
 endmodule

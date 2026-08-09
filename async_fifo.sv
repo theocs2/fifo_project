@@ -18,59 +18,57 @@ module async_fifo #(
 );
     localparam PTR_WIDTH = ADDR_WIDTH + 1;
 
-    //local pointers to both write and read domains (binary)
+    //binary pointers
     logic[PTR_WIDTH-1:0] r_ptr_bin, w_ptr_bin;
 
-    //gray local pointers
+    //gray pointers
     logic[PTR_WIDTH-1:0] r_ptr_gray, w_ptr_gray;
 
     //synchronized gray pointers
-    logic [PTR_WIDTH-1:0] w_ptr_gray_sync;  // w_ptr_gray synced to clk_rd
-    logic [PTR_WIDTH-1:0] r_ptr_gray_sync;  // r_ptr_gray synced to clk_wr
+    logic [PTR_WIDTH-1:0] w_ptr_gray_sync;  // w_ptr_gray synced to rclk
+    logic [PTR_WIDTH-1:0] r_ptr_gray_sync;  // r_ptr_gray synced to wclk
 
-    logic [ADDR_WIDTH-1:0] w_addr, r_addr; // RAM adddresses
-    
-    bin2gray u_bin2gray_wr (
-        .bin(w_ptr_bin),
-        .gray(w_ptr_gray)
+    logic [ADDR_WIDTH-1:0] w_addr, r_addr; // RAM addresses
+
+    // **** FF synchronizers ****
+    //send write gray ptr into READ domain (drives empty)
+    sync2ff #(.WIDTH(PTR_WIDTH)) sync_gwptr_to_rd (
+        .clk(rclk),
+        .rst_n(rrst_n),
+        .d1(w_ptr_gray),
+        .q2(w_ptr_gray_sync)
     );
 
+    //send read gray ptr into WRITE domain (drives full)
+    sync2ff #(.WIDTH(PTR_WIDTH)) sync_grptr_to_wr (
+        .clk(wclk),
+        .rst_n(wrst_n),
+        .d1(r_ptr_gray),
+        .q2(r_ptr_gray_sync)
+    );
 
-    // ** insert FF synchronizers here ** 
+    // **** Pointer handling ****
+    wrptr_handler #(.PTR_WIDTH(PTR_WIDTH)) u_wrptr_handler (
+        .g_rdptr_sync(r_ptr_gray_sync),
+        .wclk(wclk),
+        .wrst_n(wrst_n),
+        .wen(wen),
+        .b_wptr(w_ptr_bin),
+        .g_wptr(w_ptr_gray),
+        .full(full)
+    );
 
-    
-
-
-
-    // Pointer Increment Logic
-
-    always_ff @(posedge wclk or negedge wrst_n) begin
-        if(!wrst_n)
-            w_ptr_bin <= '0;
-        else if (wen && !full) 
-            w_ptr_bin <= w_ptr_bin + 1;
-    end
-
-    always_ff @(posedge rclk or negedge rrst_n) begin
-        if(!rrst_n) 
-            r_ptr_bin <= '0;
-        else if (ren && !empty)
-            r_ptr_bin <= r_ptr_bin + 1; //increment pointer
-    end
-
-
-
-    //Empty if all gray bits match, checked in READ domain
-    assign empty = w_ptr_gray_sync == r_ptr_gray;
-
-
-    //Full condition checked in WRITE domain
-    assign full = (w_ptr_gray[PTR_WIDTH-1] != r_ptr_gray_sync[PTR_WIDTH-1]) && 
-    (w_ptr_gray[PTR_WIDTH-2:0] == r_ptr_gray_sync[PTR_WIDTH-2:0]);
-
+    rptr_handler #(.PTR_WIDTH(PTR_WIDTH)) u_rptr_handler (
+        .g_wptr_sync(w_ptr_gray_sync),
+        .rclk(rclk),
+        .rrst_n(rrst_n),
+        .ren(ren),
+        .b_rptr(r_ptr_bin),
+        .g_rptr(r_ptr_gray),
+        .empty(empty)
+    );
 
     //memory instantiation
-
     assign w_addr = w_ptr_bin[ADDR_WIDTH-1:0];
     assign r_addr = r_ptr_bin[ADDR_WIDTH-1:0];
 
