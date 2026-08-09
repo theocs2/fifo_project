@@ -8,7 +8,7 @@ module gray2bin #(
     always_comb begin
         bin[WIDTH-1] = gray[WIDTH-1]; //MSB remains constant
         for(i = WIDTH-2; i >= 0; i--) begin
-            assign bin[i] = bin[i+1] ^ gray[i];
+            bin[i] = bin[i+1] ^ gray[i];
         end
     end 
 
