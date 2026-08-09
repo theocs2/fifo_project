@@ -16,7 +16,6 @@ module dual_port_ram #(
      
     //write port logic
     always_ff @(posedge wclk) begin
-
         if(wen)
             mem[waddr] <= wdata;
     end
