@@ -24,9 +24,7 @@ module dual_port_ram #(
     logic [DATA_WIDTH-1:0] rdata_reg;
 
     always_ff @(posedge rclk) begin
-        rdata_reg <= mem[raddr];
+        rdata <= mem[raddr];
     end
-
-    assign rdata = rdata_reg;
 
 endmodule
