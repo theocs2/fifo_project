@@ -5,7 +5,7 @@ This project implements a parameterized asynchronous FIFO in SystemVerilog for s
 The design uses binary read/write pointers for memory addressing, Gray-code pointer conversion for proper clock-domain crossing, and dual-flop synchronizers to reduce metastability risks when transferring pointers to a new clock domain.
 
 # Features
-*Parameterized data width and address width
+* Parameterized data width and address width
 *Independent write and read clocks
 *Dual-port memory
 *Binary read/write pointers
