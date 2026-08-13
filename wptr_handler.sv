@@ -8,6 +8,7 @@ module wrptr_handler #(parameter PTR_WIDTH = 5)(
 );
 
     logic [PTR_WIDTH-1:0] b_wptr_next, g_wptr_next;
+    logic [PTR_WIDTH-1:0] b_rdptr_sync;
 
     //combinationally assign next pointers
 
@@ -25,10 +26,12 @@ module wrptr_handler #(parameter PTR_WIDTH = 5)(
     end
 
     //Full when write ptr is one full wrap ahead of the (synced) read ptr
-    assign full = (g_wptr[PTR_WIDTH-1] != g_rdptr_sync[PTR_WIDTH-1]) &&
-                  (g_wptr[PTR_WIDTH-2:0] == g_rdptr_sync[PTR_WIDTH-2:0]);
+    gray2bin #(.WIDTH(PTR_WIDTH)) u_g2b(
+        .gray(g_rdptr_sync),
+        .bin(b_rdptr_sync)
+    );
 
-
-
-
+    assign full = (b_rdptr_sync[PTR_WIDTH-1] != b_wptr[PTR_WIDTH-1]
+                && b_rdptr_sync[PTR_WIDTH-2:0] == b_wptr[PTR_WIDTH-2:0]
+    );
 endmodule
