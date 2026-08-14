@@ -30,19 +30,19 @@ The verified RTL was implemented through OpenLane2 using the SKY130 PDK.
 
 ### Detailed Placement
 
-![Detailed placement](docs/detailed_placement.png)
+![Detailed placement](detailed_placement.png)
 
 *Detailed placement of the async FIFO standard cells before routing.*
 
 ### Routed Interconnect
 
-![Routed interconnect](docs/routing_closeup.png)
+![Routed interconnect](routing_closeup.png)
 
 *Zoomed post-route view showing cell geometry, vias, and metal interconnect. (~15-20% of chip shown in this image)*
 
 ### Final GDSII
 
-![Final GDSII](docs/final_gds.png)
+![Final GDSII](final_gds.png)
 
 *Final GDSII layout after routing and physical verification.*
 
