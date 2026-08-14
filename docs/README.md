@@ -16,7 +16,7 @@ The design uses binary read/write pointers for memory addressing, Gray-code poin
 * Scoreboard-based FIFO ordering for verification
 * Directed testing for reset, full, single-entry writes/reads, and multi-entry ordering
 
-# Architecture
+## Architecture
 
 ## RTL-to-GDSII Physical Implementation
 
