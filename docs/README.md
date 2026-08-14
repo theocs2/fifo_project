@@ -26,4 +26,4 @@ with the SKY130 PDK.
 
 ### Final Layout
 
-![Final GDSII layout](docs/final_layout.png)
+![Final GDSII layout](final_layout.png)
