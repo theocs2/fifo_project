@@ -42,7 +42,7 @@ The verified RTL was implemented through OpenLane2 using the SKY130 PDK.
 
 ### Final GDSII
 
-![Final GDSII](final_gds.png)
+![Final GDSII](final_layout.png)
 
 *Final GDSII layout after routing and physical verification.*
 
