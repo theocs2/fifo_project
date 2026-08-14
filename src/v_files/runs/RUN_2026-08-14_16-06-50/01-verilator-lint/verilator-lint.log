@@ -1,0 +1,22 @@
+%Warning-WIDTHEXPAND: /home/tcsul/projects/fifo_project/v_files/wptr_handler.v:16:33: Operator ADD expects 5 bits on the RHS, but RHS's LOGAND generates 1 bits.
+                                                                                    : ... note: In instance 'async_fifo.u_wrptr_handler'
+   16 |     assign b_wptr_next = b_wptr + (wen && !full);
+      |                                 ^
+                      ... For warning description see https://verilator.org/warn/WIDTHEXPAND?v=5.018
+                      ... Use "/* verilator lint_off WIDTHEXPAND */" and lint_on around source to disable this message.
+%Warning-WIDTHEXPAND: /home/tcsul/projects/fifo_project/v_files/rptr_handler.v:15:33: Operator ADD expects 5 bits on the RHS, but RHS's LOGAND generates 1 bits.
+                                                                                    : ... note: In instance 'async_fifo.u_rptr_handler'
+   15 |     assign b_rptr_next = b_rptr + (ren && !empty);
+      |                                 ^
+%Warning-UNUSEDSIGNAL: /home/tcsul/projects/fifo_project/v_files/async_fifo.v:22:26: Bits of signal are not used: 'r_ptr_bin'[4]
+                                                                                   : ... note: In instance 'async_fifo'
+   22 |     wire [PTR_WIDTH-1:0] r_ptr_bin, w_ptr_bin;
+      |                          ^~~~~~~~~
+%Warning-UNUSEDSIGNAL: /home/tcsul/projects/fifo_project/v_files/async_fifo.v:22:37: Bits of signal are not used: 'w_ptr_bin'[4]
+                                                                                   : ... note: In instance 'async_fifo'
+   22 |     wire [PTR_WIDTH-1:0] r_ptr_bin, w_ptr_bin;
+      |                                     ^~~~~~~~~
+%Warning-UNUSEDSIGNAL: /home/tcsul/projects/fifo_project/v_files/dual_port_ram.v:24:26: Signal is not driven, nor used: 'rdata_reg'
+                                                                                      : ... note: In instance 'async_fifo.bram'
+   24 |     reg [DATA_WIDTH-1:0] rdata_reg;
+      |                          ^~~~~~~~~

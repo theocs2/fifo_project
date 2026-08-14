@@ -1,0 +1,4 @@
+
+21. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod\gray2bin\WIDTH=s32'00000000000000000000000000000101.\bin' from process `$paramod\gray2bin\WIDTH=s32'00000000000000000000000000000101.$proc$/home/tcsul/projects/fifo_project/v_files/gray2bin.v:10$34'.
+No latch inferred for signal `$paramod\gray2bin\WIDTH=s32'00000000000000000000000000000101.\i' from process `$paramod\gray2bin\WIDTH=s32'00000000000000000000000000000101.$proc$/home/tcsul/projects/fifo_project/v_files/gray2bin.v:10$34'.
