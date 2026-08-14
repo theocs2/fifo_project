@@ -15,7 +15,6 @@ The design uses binary read/write pointers for memory addressing, Gray-code poin
 * Self-checking SystemVerilog testbench
 * Scoreboard-based FIFO ordering for verification
 * Directed testing for reset, full, single-entry writes/reads, and multi-entry ordering
-* Designed for RTL-to-GDSII implementation using OpenLane2 and the open source SKY130 PDK
 
 # Architecture
 
