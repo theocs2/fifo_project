@@ -1,1 +1,0 @@
-openroad -exit -no_splash -metrics /home/tcsul/projects/fifo_project/v_files/runs/RUN_2026-08-14_16-06-50/13-openroad-floorplan/or_metrics_out.json /nix/store/4pyixb03xfwwy77zxxplrggxrmm9f57y-python3-3.11.9-env/lib/python3.11/site-packages/openlane/scripts/openroad/floorplan.tcl
