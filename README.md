@@ -18,6 +18,22 @@ The design uses binary read/write pointers for memory addressing, Gray-code poin
 
 ## Architecture
 
+![Block_diagram](docs/block_diagram.png)
+
+### Signals
+* wdata: Write data
+* wen: Write enable
+* wclk: Write clock
+* wrst_n: Write reset
+* g_wptr: Gray-code write pointer
+* full: FIFO full output
+* rdata: Read data
+* ren: Read enable
+* rclk: Read clock
+* rrst_n: read reset
+* g_ptr: Gray-code read pointer
+* empty: FIFO empty output
+
 ## RTL-to-GDSII Physical Implementation
 
 The verified asynchronous FIFO RTL was implemented using OpenLane2
