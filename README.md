@@ -31,7 +31,7 @@ The design uses binary read/write pointers for memory addressing, Gray-code poin
 * ren: Read enable
 * rclk: Read clock
 * rrst_n: read reset
-* g_ptr: Gray-code read pointer
+* g_rptr: Gray-code read pointer
 * empty: FIFO empty output
 
 ## RTL-to-GDSII Physical Implementation
