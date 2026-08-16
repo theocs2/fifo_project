@@ -36,12 +36,6 @@ The design uses binary read/write pointers for memory addressing, Gray-code poin
 
 ## RTL-to-GDSII Physical Implementation
 
-The verified asynchronous FIFO RTL was implemented using OpenLane2
-with the SKY130 PDK.
-
-
-## RTL-to-GDSII Physical Implementation
-
 The verified RTL was implemented through OpenLane2 using the SKY130 PDK.
 
 ### Detailed Placement
